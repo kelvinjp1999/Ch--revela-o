@@ -1,0 +1,99 @@
+.quote {
+  max-width: 1100px;
+  margin: 5rem auto;
+  padding: 5rem 2rem;
+
+  background: linear-gradient(
+  135deg,
+  #f3e7da 0%,
+  #ebdccb 100%
+);
+
+  border-radius: 30px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.quote-icon {
+  font-size: 2rem;
+  color: white;
+
+  margin-bottom: 1.5rem;
+}
+
+.quote h2 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 3rem;
+  font-weight: 400;
+
+  color: #3d342f;
+
+  margin-bottom: 1.5rem;
+}
+
+.quote-heart {
+  font-size: 1.5rem;
+  color: white;
+
+  margin-bottom: 1.5rem;
+}
+
+.quote p {
+  font-family: "Inter", sans-serif;
+  font-size: 1.25rem;
+
+  color: #4a403a;
+
+  margin-bottom: 2.5rem;
+}
+
+.quote-button {
+  border: none;
+
+  background: #2f2722;
+
+  color: white;
+
+  padding: 1rem 3rem;
+
+  border-radius: 14px;
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.quote-button:hover {
+  transform: translateY(-2px);
+  background: #463932;
+}
+
+/* ==========================
+   RESPONSIVO
+========================== */
+
+@media (max-width: 768px) {
+  .quote {
+    margin: 3rem 1rem;
+    padding: 3rem 1.5rem;
+  }
+
+  .quote h2 {
+    font-size: 2.2rem;
+  }
+
+  .quote p {
+    font-size: 1rem;
+  }
+
+  .quote-button {
+    width: 100%;
+    max-width: 320px;
+  }
+}
