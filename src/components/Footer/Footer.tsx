@@ -3,7 +3,6 @@ import "./Footer.css";
 
 import { FiInstagram } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
-import {FiHeart} from 'react-icons/fi'
 
 function Footer() {
   return (
