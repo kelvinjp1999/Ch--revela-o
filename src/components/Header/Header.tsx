@@ -1,25 +1,26 @@
-import './Header.css'
-import {FiHeart} from 'react-icons/fi'
-
+import "./Header.css";
+import { FiHeart } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 function Header() {
-    return(
-        <header className="header">
-            <div className="logo">
-                <FiHeart/>
-            </div>
+  return (
+    <header className="header">
 
-            <nav className="menu">
-                <a href="#">Inicio</a>
-                <a href="#">Presentes</a>
-            </nav>
+      <Link to="/" className="logo">
+        <FiHeart />
+      </Link>
 
-            <button className="btn-confirmar">
-                Confirmar Presença
-            </button>
-            
-        </header>
-    )
+      <nav className="menu">
+        <Link to="/">Início</Link>
+        <Link to="/Gifts">Presentes</Link>
+      </nav>
+
+      <button className="btn-confirmar">
+        Confirmar Presença
+      </button>
+
+    </header>
+  );
 }
 
-export default Header
+export default Header;

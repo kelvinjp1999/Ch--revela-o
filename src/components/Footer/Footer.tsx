@@ -4,14 +4,13 @@ import "./Footer.css";
 import { FiInstagram } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 
+
 function Footer() {
   return (
     <footer className="footer">
 
-      <div className="footer-wave"></div>
-
-    
-        <h2>B & G</h2>
+          
+      <h2>B & G</h2>
         
       <div className="footer-social">
 

@@ -8,33 +8,21 @@
 
   padding: 6rem 2rem 3rem;
 
-  background: #fff;
-
   border-radius: 35px 35px 0 0;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+
 }
+
+
 
 .footer h2{
     margin-bottom: 2rem;
     font-family: "Brittany Signature", cursive;
 }
 
-.footer-wave {
-  position: absolute;
-
-  top: -60px;
-  left: 0;
-
-  width: 100%;
-  height: 120px;
-
-  background: #fff;
-
-  border-radius: 50% 50% 0 0;
-}
 
 .footer-logo {
   width: 260px;
