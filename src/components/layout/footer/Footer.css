@@ -1,0 +1,88 @@
+@import url("https://fonts.cdnfonts.com/css/brittany-signature");
+
+.footer {
+  position: relative;
+  min-height: 235px;
+  margin: 3rem 4px 0;
+  padding: 5.5rem 2rem 2rem;
+  overflow: hidden;
+  border-radius: 0 0 24px 24px;
+  background: #f8f5f0;
+  display: grid;
+  place-items: center;
+}
+
+.footer-wave {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 0;
+  width: 100%;
+  height: 210px;
+  color: #ebe7e1;
+}
+
+.footer-wave path {
+  fill: currentColor;
+}
+
+.footer-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-monogram {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 1.55rem;
+  color: #4e4843;
+  font-family: "Brittany Signature", cursive;
+  font-size: clamp(2.6rem, 7vw, 4.25rem);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.footer-monogram svg {
+  width: 2.4rem;
+  height: 2.4rem;
+  stroke-width: 1.35;
+}
+
+.footer-social {
+  display: flex;
+  gap: 1.7rem;
+}
+
+.footer-social a {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  color: #4e4843;
+  font-size: 1.75rem;
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.footer-social a:hover {
+  color: #8e7565;
+  transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+  .footer {
+    min-height: 205px;
+    margin-top: 2.5rem;
+    padding-top: 4.7rem;
+  }
+
+  .footer-wave {
+    height: 185px;
+  }
+
+  .footer-monogram {
+    margin-bottom: 1.3rem;
+  }
+}
