@@ -1,6 +1,7 @@
 import "./Quote.css";
 import { FiHeart } from "react-icons/fi";
 import { FaQuoteLeft } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function Quote() {
   return (
@@ -14,9 +15,11 @@ function Quote() {
 
       <p>Obrigada por fazer parte dessa história!</p>
 
-      <button className="quote-button">
-        VER LISTA DE PRESENTES
-      </button>
+      <Link to="/Gifts">
+        <button className="quote-button">
+          VER LISTA DE PRESENTES
+        </button>
+      </Link>
 
     </section>
   );
