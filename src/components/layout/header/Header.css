@@ -66,9 +66,40 @@
   font-family: "Inter", sans-serif;
 }
 
+.presence-backdrop { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; padding: 24px; background: rgba(47, 39, 34, 0.52); backdrop-filter: blur(5px); animation: presenceFadeIn .25s ease-out; }
+.presence-modal { position: relative; width: min(100%, 460px); padding: 48px; overflow: hidden; border: 1px solid rgba(156, 125, 93, .25); border-radius: 28px; background: #fdfaf6; box-shadow: 0 24px 70px rgba(47, 39, 34, .26); text-align: center; animation: presenceSlideIn .3s ease-out; }
+.presence-modal::before, .presence-modal::after { position: absolute; width: 140px; height: 140px; border: 1px solid rgba(156, 125, 93, .2); border-radius: 50%; content: ""; }
+.presence-modal::before { top: -94px; left: -76px; }
+.presence-modal::after { right: -90px; bottom: -95px; }
+.presence-close { position: absolute; top: 16px; right: 16px; z-index: 1; display: grid; width: 36px; height: 36px; place-items: center; border: 0; border-radius: 50%; background: transparent; color: #6d5a50; cursor: pointer; font-size: 21px; transition: background .2s ease; }
+.presence-close:hover { background: #f3ebe2; }
+.presence-icon { position: relative; z-index: 1; display: inline-grid; width: 52px; height: 52px; place-items: center; border-radius: 50%; background: #efe2d3; color: #9c7d5d; font-size: 24px; }
+.presence-eyebrow { position: relative; z-index: 1; margin-top: 18px; color: #9c7d5d; font-family: "Inter", sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+.presence-modal h2 { position: relative; z-index: 1; margin: 10px 0 12px; color: #3d342f; font-family: "Cormorant Garamond", serif; font-size: clamp(32px, 6vw, 42px); font-weight: 500; line-height: .98; }
+.presence-text, .presence-success p:not(.presence-eyebrow) { position: relative; z-index: 1; color: #6d5a50; font-size: 14px; line-height: 1.65; }
+.presence-form { position: relative; z-index: 1; margin-top: 28px; text-align: left; }
+.presence-form label { display: block; margin-bottom: 8px; color: #4a403a; font-size: 13px; font-weight: 600; }
+.presence-input-wrap { display: flex; align-items: center; gap: 10px; padding: 0 14px; border: 1px solid #ded1c5; border-radius: 12px; background: #fff; color: #9c7d5d; }
+.presence-input-wrap:focus-within { border-color: #9c7d5d; box-shadow: 0 0 0 3px rgba(156, 125, 93, .13); }
+.presence-input-wrap input { width: 100%; padding: 14px 0; border: 0; outline: 0; background: transparent; color: #3d342f; font: inherit; }
+.presence-input-wrap input::placeholder { color: #b5a79b; }
+.presence-submit { position: relative; z-index: 1; display: inline-flex; width: 100%; align-items: center; justify-content: center; gap: 9px; margin-top: 18px; padding: 14px 18px; border: 0; border-radius: 12px; background: #2f2722; color: #fff; cursor: pointer; font-family: "Inter", sans-serif; font-size: 14px; font-weight: 500; transition: transform .2s ease, background .2s ease; }
+.presence-submit:hover { background: #4a403a; transform: translateY(-2px); }
+.presence-error { position: relative; z-index: 1; margin-top: 10px; color: #a44d43; font-size: 12px; text-align: center; }
+.presence-success .presence-submit { width: auto; min-width: 150px; }
+
+@keyframes presenceFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes presenceSlideIn { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
 /* Tablet e celular */
 @media (max-width: 1024px) {
   .menu {
     display: none;
   }
+}
+
+@media (max-width: 480px) {
+  .header { padding: 0 16px; justify-content: space-between; }
+  .btn-confirmar { padding: .75em 14px; font-size: 13px; }
+  .presence-modal { padding: 42px 24px 30px; border-radius: 22px; }
 }
