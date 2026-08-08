@@ -33,19 +33,28 @@ function Header() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!guestName.trim() || !supabase) return;
+    if (!guestName.trim()) return;
 
-    setIsSubmitting(true);
-    setError("");
-    const { error: requestError } = await supabase.rpc("register_guest", { p_name: guestName.trim() });
-    setIsSubmitting(false);
-
-    if (requestError) {
-      setError("Não conseguimos confirmar agora. Tente novamente em instantes.");
+    if (!supabase) {
+      setError("A confirmação não está configurada neste site. Tente novamente após a publicação ser atualizada.");
       return;
     }
 
-    setIsConfirmed(true);
+    setIsSubmitting(true);
+    setError("");
+    try {
+      const { error: requestError } = await supabase.rpc("register_guest", { p_name: guestName.trim() });
+      if (requestError) {
+        setError("Não conseguimos confirmar agora. Tente novamente em instantes.");
+        return;
+      }
+
+      setIsConfirmed(true);
+    } catch {
+      setError("Não conseguimos confirmar agora. Tente novamente em instantes.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -99,7 +108,7 @@ function Header() {
                     <FiUser aria-hidden="true" />
                     <input id="guest-name" type="text" value={guestName} onChange={(event) => setGuestName(event.target.value)} placeholder="Seu nome" autoFocus required />
                   </div>
-                  <button className="presence-submit" type="submit">
+                  <button className="presence-submit" type="submit" disabled={isSubmitting}>
                     {isSubmitting ? "Confirmando..." : <>Confirmar com carinho <FiHeart aria-hidden="true" /></>}
                   </button>
                   {error && <p className="presence-error" role="alert">{error}</p>}

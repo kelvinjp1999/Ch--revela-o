@@ -116,26 +116,36 @@ function GiftsPage() {
   }, [])
 
   const confirmPix = async () => {
-    if (!selectedGift || !supabase) return
+    if (!selectedGift) return
 
-    setIsSubmitting(true)
-    setPixError('')
-    const { error } = selectedGift.id === 0
-      ? await supabase.rpc('create_free_contribution')
-      : await supabase.rpc('reserve_gift_quota', { p_gift_id: selectedGift.id })
-    setIsSubmitting(false)
-
-    if (error) {
-      setPixError(error.message.includes('Todas as cotas') ? error.message : 'Não foi possível registrar sua contribuição. Tente novamente.')
+    if (!supabase) {
+      setPixError('O pagamento não está configurado neste site. Tente novamente após a publicação ser atualizada.')
       return
     }
 
-    if (selectedGift.id !== 0) {
-      setStoredGifts((currentGifts) => currentGifts.map((gift) => (
-        gift.id === selectedGift.id ? { ...gift, purchasedQuotas: gift.purchasedQuotas + 1 } : gift
-      )))
+    setIsSubmitting(true)
+    setPixError('')
+    try {
+      const { error } = selectedGift.id === 0
+        ? await supabase.rpc('create_free_contribution')
+        : await supabase.rpc('reserve_gift_quota', { p_gift_id: selectedGift.id })
+
+      if (error) {
+        setPixError(error.message.includes('Todas as cotas') ? error.message : 'Não foi possível registrar sua contribuição. Tente novamente.')
+        return
+      }
+
+      if (selectedGift.id !== 0) {
+        setStoredGifts((currentGifts) => currentGifts.map((gift) => (
+          gift.id === selectedGift.id ? { ...gift, purchasedQuotas: gift.purchasedQuotas + 1 } : gift
+        )))
+      }
+      setIsPixConfirmed(true)
+    } catch {
+      setPixError('Não foi possível registrar sua contribuição. Verifique sua conexão e tente novamente.')
+    } finally {
+      setIsSubmitting(false)
     }
-    setIsPixConfirmed(true)
   }
 
   return (
