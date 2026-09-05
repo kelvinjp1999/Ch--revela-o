@@ -1,9 +1,11 @@
 import './About.css'
+import casaImage from '../../../../assets/images/casa.png'
 
 
 const About = () => {
   return (
         <section className="about">
+            <img className="about-background" src={casaImage} alt="" aria-hidden="true" />
             <div className="about-content">
                 <h2>Nossa História</h2>
 
