@@ -7,8 +7,9 @@
 }
 
 body {
-  background: #f7f2eb;
+  background: #fff5dc;
   font-family: "Inter", sans-serif;
 }
 
-::selection { background: #dbc0a5; color: #3d342f; }
+:root { --navy: #173b63; --navy-deep: #102e4e; --gold: #d2ad68; --gold-light: #f3e1b5; --cream: #fff5dc; --cream-light: #fffaf0; --red: #9e3028; --ink: #17324e; }
+::selection { background: var(--gold); color: var(--navy-deep); }

@@ -54,6 +54,8 @@
   line-height: 1.25;
 }
 
+.about { background: #fffaf0; }.about::before, .about::after { border-color: #e5c581; }.about-content h2 { color: #173b63; }.about-content p { color: #294864; }.about-content .about-prayer { border-bottom-color: #d2ad68; color: #9e3028; }
+
 /* Tablet */
 @media (max-width: 768px) {
   .about {

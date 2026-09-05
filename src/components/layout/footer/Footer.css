@@ -71,6 +71,8 @@
   transform: translateY(-3px);
 }
 
+.footer { background: #173b63; }.footer-wave { color: #102e4e; }.footer-monogram, .footer-social a { color: #f3d487; }.footer-social a:hover { color: #fff5dc; }
+
 @media (max-width: 768px) {
   .footer {
     min-height: 205px;

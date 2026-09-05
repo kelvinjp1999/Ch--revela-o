@@ -39,6 +39,8 @@
 .gallery-heading h2 { margin-top: 9px; color: #3d342f; font-family: "Cormorant Garamond", serif; font-size: clamp(2.3rem, 4vw, 3.2rem); font-weight: 500; line-height: 1; }
 .gallery-item-middle { transform: translateY(36px); }
 
+.gallery-item { border-color: #f9edcf; box-shadow: 0 14px 28px rgba(16, 46, 78, .14); }.gallery-heading p { color: #9e3028; }.gallery-heading h2 { color: #173b63; }
+
 /* ==========================
    RESPONSIVO
 ========================== */

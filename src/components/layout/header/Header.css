@@ -14,6 +14,12 @@
   box-shadow: 0 4px 20px rgba(83, 59, 42, .045);
 }
 
+.header { background: rgba(255, 250, 240, .96); border-bottom-color: #e4c889; box-shadow: 0 4px 20px rgba(16, 46, 78, .08); }
+.logo { border-color: #d2ad68; background: #173b63; box-shadow: inset 0 0 0 4px #234b77; color: #f5d990; }
+.logo:hover { background: #9e3028; }.menu a { color: #173b63; }.menu a::after { background: #9e3028; }.menu a:hover { color: #9e3028; }
+.btn-confirmar { background: linear-gradient(135deg, #173b63, #102e4e); box-shadow: 0 8px 18px rgba(16, 46, 78, .2); }.btn-confirmar:hover { background: linear-gradient(135deg, #9e3028, #7d211d); }.btn-confirmar svg { color: #f3d487; }
+.presence-backdrop { background: rgba(16, 46, 78, .62); }.presence-modal { border-color: rgba(210, 173, 104, .55); background: #fffaf0; box-shadow: 0 24px 70px rgba(16, 46, 78, .3); }.presence-modal::before, .presence-modal::after { border-color: rgba(210, 173, 104, .38); }.presence-close, .presence-text, .presence-success p:not(.presence-eyebrow) { color: #173b63; }.presence-close:hover { background: #f6e6bc; }.presence-icon { background: #f6e6bc; color: #9e3028; }.presence-eyebrow { color: #9e3028; }.presence-modal h2, .presence-form label, .presence-input-wrap input { color: #17324e; }.presence-input-wrap { border-color: #d7b46f; background: #fffdf7; color: #9e3028; }.presence-input-wrap:focus-within { border-color: #173b63; box-shadow: 0 0 0 3px rgba(23, 59, 99, .13); }.presence-submit { background: #173b63; }.presence-submit:hover { background: #9e3028; }.presence-adults-note { border-color: #e2bd77; background: #fff0cf; color: #7e2924 !important; }
+
 .logo {
   display: grid;
   width: 43px;

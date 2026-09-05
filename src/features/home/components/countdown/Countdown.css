@@ -10,6 +10,8 @@
   background: radial-gradient(circle at 50% 0, #fffdf9 0, #f7f2eb 58%);
 }
 
+.countdown { background: radial-gradient(circle at 50% 0, #fffdf5 0, #fff1d1 60%); }.countdown::before, .countdown::after { border-color: rgba(210, 173, 104, .45); }.countdown-intro p { color: #9e3028; }.countdown-intro h2 { color: #173b63; }.countdown-timer { border-color: rgba(210, 173, 104, .8); background: rgba(255, 250, 240, .72); box-shadow: 0 18px 44px rgba(16, 46, 78, .1); }.time-box { border-color: #e1bf7c; background: linear-gradient(145deg, #fffdf7, #f9e7bd); box-shadow: inset 0 0 0 5px rgba(255, 255, 255, .62), 0 14px 30px rgba(16, 46, 78, .1); }.time-box h2 { color: #173b63; }.time-box span, .time-box:not(:last-child)::after { color: #9e3028; }
+
 .countdown::before, .countdown::after { position: absolute; width: 210px; height: 210px; border: 1px solid rgba(200, 170, 135, .26); border-radius: 50%; content: ""; }
 .countdown::before { top: 45px; left: -115px; }.countdown::after { right: -120px; bottom: 35px; }
 
