@@ -20,6 +20,8 @@
   justify-content: flex-start;
 
   overflow: hidden;
+  min-height: 680px;
+  background: #e9ddd0;
 }
 
 /* ==========================================
@@ -35,7 +37,7 @@
 
   object-fit: cover;
   object-position: center 30%;
-  border-radius: 0 0 130px 130px;
+  border-radius: 0 0 90px 90px;
 
   z-index: 1;
 
@@ -50,7 +52,7 @@
   position: absolute;
   inset: 0;
 
-  background: rgba(247, 242, 235, 0.15);
+  background: linear-gradient(90deg, rgba(247, 242, 235, .82) 0%, rgba(247, 242, 235, .42) 42%, rgba(56, 42, 34, .06) 100%);
 
   z-index: 2;
 }
@@ -141,6 +143,19 @@
   color: #6d5a50;
 }
 
+.hero-kicker {
+  margin-bottom: 18px;
+  padding: 8px 13px;
+  border: 1px solid rgba(113, 86, 65, .32);
+  border-radius: 999px;
+  color: #765947 !important;
+  font-size: 11px !important;
+  font-weight: 600;
+  letter-spacing: 1.7px;
+  line-height: 1 !important;
+  text-transform: uppercase;
+}
+
 /* ==========================================
    SETA
 ========================================== */
@@ -222,7 +237,7 @@
   }
 
   .hero-overlay {
-    background: rgba(247, 242, 235, 0.35);
+    background: rgba(247, 242, 235, 0.52);
   }
 
   .hero-content {

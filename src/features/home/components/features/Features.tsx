@@ -2,47 +2,40 @@ import './Features.css'
 
 
 import {
-  FiCalendar,
-  FiCoffee,
-  FiHome,
+  FiFilm,
 } from "react-icons/fi";
 
-import { LuPlane } from "react-icons/lu";
+import { FaDice } from "react-icons/fa";
+import { LuBlocks, LuPlane } from "react-icons/lu";
 
 const Features = () => {
   return (
     <section className="features">
+      <div className="features-heading">
+        <p>As pequenas coisas que amamos fazer juntos</p>
+        <h2>Amantes de</h2>
+      </div>
 
+      <div className="features-list">
       <div className="feature-item">
-        <FiCalendar className="feature-icon" />
-
-        <h3>JUNTOS DESDE</h3>
-
-        <span>2020</span>
+        <div className="feature-icon-wrap"><FiFilm className="feature-icon" /></div>
+        <span>VER FILMES</span>
       </div>
 
       <div className="feature-item">
-        <LuPlane className="feature-icon" />
-
-        <h3>AMANTES DE</h3>
-
-        <span>VIAGEM</span>
+        <div className="feature-icon-wrap"><LuPlane className="feature-icon" /></div>
+        <span>VIAJAR</span>
       </div>
 
       <div className="feature-item">
-        <FiCoffee className="feature-icon" />
-
-        <h3>CAFÉ, FILMES E</h3>
-
-        <span>BONS VINHOS</span>
+        <div className="feature-icon-wrap"><LuBlocks className="feature-icon" /></div>
+        <span>LEGOS</span>
       </div>
 
       <div className="feature-item">
-        <FiHome className="feature-icon" />
-
-        <h3>CONSTRUINDO</h3>
-
-        <span>NOSSO LAR</span>
+        <div className="feature-icon-wrap"><FaDice className="feature-icon" /></div>
+        <span>JOGOS DE TABULEIRO</span>
+      </div>
       </div>
 
     </section>

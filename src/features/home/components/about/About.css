@@ -1,12 +1,19 @@
 .about {
+  position: relative;
   width: 100%;
-  padding: 6rem 2rem;
+  padding: 6.5rem 2rem;
 
   display: flex;
   justify-content: center;
+  overflow: hidden;
+  background: #fffdf9;
 }
 
+.about::before, .about::after { position: absolute; width: 155px; height: 155px; border: 1px solid #ead8c5; border-radius: 50%; content: ""; }
+.about::before { top: 45px; left: -80px; }.about::after { right: -85px; bottom: 35px; }
+
 .about-content {
+  position: relative;
   width: 100%;
   max-width: 900px;
 
@@ -20,7 +27,7 @@
 
   color: #3d342f;
 
-  margin-bottom: 2rem;
+  margin-bottom: 1.3rem;
 }
 
 .about-content p {
@@ -29,6 +36,22 @@
   line-height: 2;
 
   color: #5a4a42;
+}
+
+.about-content .about-prayer {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: .35rem 1.1rem;
+
+  border-bottom: 1px solid #c8aa87;
+  color: #9c7d5d;
+
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.6rem, 3vw, 2.15rem);
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: .02em;
+  line-height: 1.25;
 }
 
 /* Tablet */

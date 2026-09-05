@@ -345,6 +345,7 @@
 .pix-kicker { position: relative; z-index: 1; margin-top: 17px; color: #9c7d5d; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
 .pix-modal h2 { position: relative; z-index: 1; margin: 10px 0 11px; color: #3d342f; font-family: "Cormorant Garamond", serif; font-size: clamp(31px, 6vw, 42px); font-weight: 500; line-height: 1; }
 .pix-description, .pix-success p:not(.pix-kicker) { position: relative; z-index: 1; color: #6d5a50; font-size: 14px; line-height: 1.65; }
+.pix-qr-code { position: relative; z-index: 1; display: block; width: 178px; height: 178px; margin: 20px auto 0; border: 8px solid #fff; border-radius: 12px; background: #fff; box-shadow: 0 5px 18px rgba(47, 39, 34, .1); image-rendering: pixelated; }
 
 .pix-code-box {
     position: relative;
@@ -372,6 +373,7 @@
 .pix-confirm-button:hover { background: #31855b; border-color: #31855b; }
 .pix-confirm-button:disabled { cursor: wait; opacity: .7; }
 .pix-success .pix-confirm-button { position: relative; z-index: 1; width: auto; margin-top: 22px; padding-right: 28px; padding-left: 28px; }
+.pix-success-note { margin-top: 12px; font-style: italic; }
 .pix-error { position: relative; z-index: 1; margin-top: 12px; color: #a44d43; font-size: 12px; }
 
 @keyframes pix-fade-in { from { opacity: 0; } to { opacity: 1; } }

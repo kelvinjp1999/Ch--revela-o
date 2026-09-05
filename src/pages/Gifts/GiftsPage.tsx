@@ -7,6 +7,7 @@ import GiftsHero from '../../features/gifts/components/gifts-hero/GiftsHero'
 import { gifts, type Gift, type GiftCategory } from '../../features/gifts/data/gifts'
 import HeartIcon from '../../components/ui/HeartIcon'
 import { supabase } from '../../lib/supabase'
+import pixQrCode from '../../assets/images/pix-qr-code.png'
 import './GiftsPage.css'
 
 const categories = [
@@ -46,7 +47,7 @@ function GiftsPage() {
   const [storedGifts, setStoredGifts] = useState<Gift[]>(gifts)
   const [giftsLoadError, setGiftsLoadError] = useState('')
   const visibleGifts = category === 'todos' ? storedGifts : storedGifts.filter((gift) => gift.category === category)
-  const pixCode = '00020101021226850014br.gov.bcb.pix2563pix.ficticio.chacasanova.com.br/cobv/abc123520400005303986540520.005802BR5922Beatriz e Guilherme6009Sao Paulo62070503***6304FAKE'
+  const pixCode = '00020101021126580014br.gov.bcb.pix0136333f7cc1-0e15-46ce-ae76-11f494d4766f5204000053039865802BR5921BEATRIZ T DE CARVALHO6013SAO JOSE DOS 62070503***63045CBB'
 
   const closePixModal = () => {
     setSelectedGift(null)
@@ -128,18 +129,13 @@ function GiftsPage() {
     try {
       const { error } = selectedGift.id === 0
         ? await supabase.rpc('create_free_contribution')
-        : await supabase.rpc('reserve_gift_quota', { p_gift_id: selectedGift.id })
+        : await supabase.rpc('create_pix_payment_request', { p_gift_id: selectedGift.id })
 
       if (error) {
         setPixError(error.message.includes('Todas as cotas') ? error.message : 'Não foi possível registrar sua contribuição. Tente novamente.')
         return
       }
 
-      if (selectedGift.id !== 0) {
-        setStoredGifts((currentGifts) => currentGifts.map((gift) => (
-          gift.id === selectedGift.id ? { ...gift, purchasedQuotas: gift.purchasedQuotas + 1 } : gift
-        )))
-      }
       setIsPixConfirmed(true)
     } catch {
       setPixError('Não foi possível registrar sua contribuição. Verifique sua conexão e tente novamente.')
@@ -218,17 +214,23 @@ function GiftsPage() {
             {isPixConfirmed ? (
               <div className="pix-success">
                 <span className="pix-icon"><FiCheck /></span>
-                <p className="pix-kicker">Pagamento sinalizado</p>
-                <h2 id="pix-modal-title">Obrigada por fazer parte do nosso lar!</h2>
-                <p>Assim que o Pix for identificado, a sua cota de <strong>{selectedGift.name}</strong> será reservada com carinho.</p>
-                <button type="button" className="pix-confirm-button" onClick={closePixModal}>Que alegria!</button>
+                <p className="pix-kicker">Pedido recebido</p>
+                <h2 id="pix-modal-title">Que alegria ter você com a gente!</h2>
+                <p>
+                  Obrigada pela contribuição. Assim que o Pix for confirmado, sua cota de
+                  {' '}<strong>{selectedGift.name}</strong> entrará na nossa lista de presentes.
+                </p>
+                <p className="pix-success-note">Seu apoio já deixou nosso novo lar ainda mais especial. 💛</p>
+                <button type="button" className="pix-confirm-button" onClick={closePixModal}>Com carinho!</button>
               </div>
             ) : (
               <>
                 <span className="pix-icon"><FiCoffee /></span>
                 <p className="pix-kicker">Uma cota cheia de carinho</p>
                 <h2 id="pix-modal-title">{selectedGift.name}</h2>
-                <p className="pix-description">Copie o código Pix abaixo para nos ajudar a deixar o novo lar ainda mais especial.</p>
+                <p className="pix-description">Escaneie o QR code ou copie a chave Pix abaixo para contribuir.</p>
+
+                <img className="pix-qr-code" src={pixQrCode} alt="QR code para pagamento via Pix" />
 
                 <div className="pix-code-box">
                   <span>{pixCode}</span>
@@ -238,7 +240,7 @@ function GiftsPage() {
                   </button>
                 </div>
 
-                <p className="pix-security"><FiShield aria-hidden="true" /> Código fictício para demonstração</p>
+                <p className="pix-security"><FiShield aria-hidden="true" /> Pagamento seguro via Pix</p>
                 <div className="pix-actions">
                   <button type="button" className="pix-cancel-button" onClick={closePixModal}>Cancelar</button>
                   <button type="button" className="pix-confirm-button" onClick={confirmPix} disabled={isSubmitting}>

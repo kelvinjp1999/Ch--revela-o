@@ -8,11 +8,9 @@ const About = () => {
                 <h2>Nossa História</h2>
 
                 <p>
-                Nossa história começou de uma forma muito especial e, desde então,
-                construímos momentos inesquecíveis juntos. Agora chegou a hora de
-                celebrar essa nova etapa e queremos compartilhar esse dia com as
-                pessoas mais importantes da nossa vida.
+                Nossa nova história está começando, e sua presença é o ingrediente que não pode faltar
                 </p>
+                <p className="about-prayer">“Tudo aqui já foi uma oração.”</p>
             </div>
         </section>
   )

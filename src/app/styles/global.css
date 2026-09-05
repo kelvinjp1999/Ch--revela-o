@@ -10,3 +10,5 @@ body {
   background: #f7f2eb;
   font-family: "Inter", sans-serif;
 }
+
+::selection { background: #dbc0a5; color: #3d342f; }

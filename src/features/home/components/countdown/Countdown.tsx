@@ -44,6 +44,11 @@ function Countdown() {
 }, []);
     return(
         <section className="countdown">
+            <div className="countdown-intro">
+                <p>Nos vemos em breve</p>
+                <h2>A contagem para o nosso dia especial</h2>
+            </div>
+            <div className="countdown-timer">
             <div className="time-box">
                 <h2>{timeLeft.days}</h2>
                 <span>Dias</span>
@@ -59,6 +64,7 @@ function Countdown() {
             <div className="time-box">
                 <h2>{timeLeft.seconds}</h2>
                 <span>Segundos</span>
+            </div>
             </div>
         </section>
     )

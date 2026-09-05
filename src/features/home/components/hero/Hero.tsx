@@ -15,6 +15,7 @@ function Hero() {
       <div className="hero-overlay"></div>
 
       <div className="hero-content">
+        <p className="hero-kicker">Um convite feito com carinho</p>
         <h1>Chá</h1>
         <h1>Casa Nova</h1>
 

@@ -33,7 +33,7 @@ function Footer() {
 
           <a
             aria-label="WhatsApp"
-            href="https://wa.me/5500000000000"
+            href="https://wa.me/5512988862165"
             target="_blank"
             rel="noreferrer"
           >

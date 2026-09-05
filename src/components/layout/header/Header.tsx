@@ -70,7 +70,8 @@ function Header() {
         </nav>
 
         <button className="btn-confirmar" onClick={() => setIsConfirmationOpen(true)}>
-          Confirmar Presença
+          <FiHeart aria-hidden="true" />
+          Confirmar presença
         </button>
       </header>
 
@@ -92,7 +93,8 @@ function Header() {
                 <span className="presence-icon"><FiCheck /></span>
                 <p className="presence-eyebrow">Tudo anotado!</p>
                 <h2 id="presence-title">Que alegria ter você com a gente, {guestName.trim()}!</h2>
-                <p>Vamos deixar um lugar especial à mesa — e o café bem quentinho. ☕</p>
+                <p>Vamos deixar um lugar especial à mesa</p>
+                <p className="presence-adults-note">Preparamos esse momento com muito carinho e, para que todos possam aproveitar a celebração, o evento será somente para adultos. Contamos com sua compreensão! ❤️</p>
                 <button className="presence-submit" onClick={closeConfirmation}>Até lá!</button>
               </div>
             ) : (
@@ -109,7 +111,7 @@ function Header() {
                     <input id="guest-name" type="text" value={guestName} onChange={(event) => setGuestName(event.target.value)} placeholder="Seu nome" autoFocus required />
                   </div>
                   <button className="presence-submit" type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? "Confirmando..." : <>Confirmar com carinho <FiHeart aria-hidden="true" /></>}
+                    {isSubmitting ? "Confirmando..." : <>Confirmar<FiHeart aria-hidden="true" /></>}
                   </button>
                   {error && <p className="presence-error" role="alert">{error}</p>}
                 </form>
