@@ -6,6 +6,7 @@ const eventDate = new Date('2027-04-01T00:00:00')
 
 function Countdown() {
     const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+    const formatTime = (value: number) => String(value).padStart(2, '0')
 
     useEffect(() => {
   const updateCountdown = () => {
@@ -50,19 +51,19 @@ function Countdown() {
             </div>
             <div className="countdown-timer">
             <div className="time-box">
-                <h2>{timeLeft.days}</h2>
+                <h2>{formatTime(timeLeft.days)}</h2>
                 <span>Dias</span>
             </div>
             <div className="time-box">
-                <h2>{timeLeft.hours}</h2>
+                <h2>{formatTime(timeLeft.hours)}</h2>
                 <span>Horas</span>
             </div>
             <div className="time-box">
-                <h2>{timeLeft.minutes}</h2>
+                <h2>{formatTime(timeLeft.minutes)}</h2>
                 <span>Minutos</span>
             </div>
             <div className="time-box">
-                <h2>{timeLeft.seconds}</h2>
+                <h2>{formatTime(timeLeft.seconds)}</h2>
                 <span>Segundos</span>
             </div>
             </div>

@@ -1,4 +1,6 @@
 .countdown {
+  position: relative;
+  overflow: hidden;
   padding: 6.5rem 2rem;
 
   display: flex;
@@ -8,32 +10,39 @@
   background: radial-gradient(circle at 50% 0, #fffdf9 0, #f7f2eb 58%);
 }
 
-.countdown-intro { max-width: 570px; margin-bottom: 34px; text-align: center; }
+.countdown::before, .countdown::after { position: absolute; width: 210px; height: 210px; border: 1px solid rgba(200, 170, 135, .26); border-radius: 50%; content: ""; }
+.countdown::before { top: 45px; left: -115px; }.countdown::after { right: -120px; bottom: 35px; }
+
+.countdown-intro { position: relative; z-index: 1; max-width: 570px; margin-bottom: 34px; text-align: center; }
 .countdown-intro p { color: #9c7d5d; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
 .countdown-intro h2 { margin-top: 10px; color: #3d342f; font-family: "Cormorant Garamond", serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; line-height: 1; }
-.countdown-timer { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+.countdown-timer { position: relative; z-index: 1; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; padding: 20px; border: 1px solid rgba(221, 200, 178, .7); border-radius: 30px; background: rgba(255, 253, 249, .62); box-shadow: 0 18px 44px rgba(83, 59, 42, .06); backdrop-filter: blur(5px); }
 
 .time-box {
   width: 140px;
   height: 140px;
 
-  background: white;
+  position: relative;
+  overflow: visible;
+  background: linear-gradient(145deg, #fff, #faf3eb);
 
   border: 1px solid #eee2d5;
-  border-radius: 18px;
+  border-radius: 20px;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  box-shadow: 0 14px 30px rgba(83, 59, 42, .08);
+  box-shadow: inset 0 0 0 5px rgba(255, 255, 255, .62), 0 14px 30px rgba(83, 59, 42, .08);
 }
+
+.time-box:not(:last-child)::after { position: absolute; z-index: 2; top: 50%; right: -14px; color: #b89575; content: "·"; font-family: "Cormorant Garamond", serif; font-size: 32px; transform: translateY(-58%); }
 
 .time-box h2 {
   font-family: "Cormorant Garamond", serif;
-  font-size: 3rem;
-  color: #3d342f;
+  font-size: 3.35rem;
+  color: #4b3c32;
   font-weight: 500;
 }
 
@@ -44,7 +53,7 @@
 
   text-transform: uppercase;
 
-  letter-spacing: 2px;
+  letter-spacing: 2.2px;
 
   color: #7b6d66;
 }
@@ -52,7 +61,7 @@
 @media (max-width:768px){
 
 .countdown { padding: 4.5rem 1rem; }
-.countdown-timer { gap: 10px; }
+.countdown-timer { gap: 10px; padding: 12px; border-radius: 22px; }
 
 .time-box{
 
@@ -68,3 +77,5 @@ font-size:2.3rem;
 }
 
 }
+
+@media (max-width: 768px) { .time-box:not(:last-child)::after { display: none; } }
