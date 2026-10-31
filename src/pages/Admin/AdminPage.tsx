@@ -91,6 +91,12 @@ function AdminPage() {
     void validateSession()
   }, [validateSession])
 
+  useEffect(() => {
+    if (!isAuthorized || !pixRequests.length || !window.location.hash.startsWith('#pix-')) return
+    const requestId = window.location.hash.slice('#pix-'.length)
+    document.getElementById(`pix-${requestId}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }, [isAuthorized, pixRequests])
+
   const login = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!supabase) return
@@ -198,7 +204,7 @@ function AdminPage() {
         <div className="admin-section-heading"><div><p className="admin-eyebrow">Pagamentos</p><h2>Cotas pendentes de confirmação</h2></div><span>{pixRequests.length}</span></div>
         {pixRequests.length ? (
           <div className="admin-list">
-            {pixRequests.map((request) => <article className="admin-row" key={request.id}><div><h3>{request.product_name}</h3><p>{formatCurrency(request.quota_value)} · Solicitado em {formatDate(request.created_at)}</p></div><div className="admin-row-actions"><button className="confirm" type="button" onClick={() => void confirmQuota(request)}><FiCheck /> Confirmar cota</button><button className="danger" type="button" onClick={() => void deleteQuota(request)}><FiTrash2 /> Excluir cota</button></div></article>)}
+            {pixRequests.map((request) => <article className="admin-row" id={`pix-${request.id}`} key={request.id}><div><h3>{request.product_name}</h3><p>{formatCurrency(request.quota_value)} · Solicitado em {formatDate(request.created_at)}</p></div><div className="admin-row-actions"><button className="confirm" type="button" onClick={() => void confirmQuota(request)}><FiCheck /> Confirmar cota</button><button className="danger" type="button" onClick={() => void deleteQuota(request)}><FiTrash2 /> Excluir cota</button></div></article>)}
           </div>
         ) : <p className="admin-empty">Nenhuma cota aguardando confirmação.</p>}
       </section>

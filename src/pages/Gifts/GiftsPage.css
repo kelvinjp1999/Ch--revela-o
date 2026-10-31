@@ -131,7 +131,7 @@
 .price {
     display: block;
 
-    font-size: 1rem;
+    font-size: 1.15rem;
 
     color: #7b6d63;
 
@@ -344,6 +344,7 @@
 .pix-icon { position: relative; z-index: 1; display: inline-grid; width: 52px; height: 52px; place-items: center; border-radius: 50%; background: #efe2d3; color: #9c7d5d; font-size: 24px; }
 .pix-kicker { position: relative; z-index: 1; margin-top: 17px; color: #9c7d5d; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
 .pix-modal h2 { position: relative; z-index: 1; margin: 10px 0 11px; color: #3d342f; font-family: "Cormorant Garamond", serif; font-size: clamp(31px, 6vw, 42px); font-weight: 500; line-height: 1; }
+.pix-value { position: relative; z-index: 1; margin: 0 0 10px; color: #3d9b6d; font-size: 19px; font-weight: 700; }
 .pix-description, .pix-success p:not(.pix-kicker) { position: relative; z-index: 1; color: #6d5a50; font-size: 14px; line-height: 1.65; }
 .pix-qr-code { position: relative; z-index: 1; display: block; width: 178px; height: 178px; margin: 20px auto 0; border: 8px solid #fff; border-radius: 12px; background: #fff; box-shadow: 0 5px 18px rgba(47, 39, 34, .1); image-rendering: pixelated; }
 

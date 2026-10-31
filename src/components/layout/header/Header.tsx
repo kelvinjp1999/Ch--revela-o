@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { FiCheck, FiCoffee, FiHeart, FiUser, FiX } from "react-icons/fi";
 import HeartIcon from "../../ui/HeartIcon";
 import { supabase } from "../../../lib/supabase";
+import { notifyAdmin } from "../../../lib/adminNotifications";
 
 function Header() {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
@@ -43,12 +44,13 @@ function Header() {
     setIsSubmitting(true);
     setError("");
     try {
-      const { error: requestError } = await supabase.rpc("register_guest", { p_name: guestName.trim() });
+      const { data: guestId, error: requestError } = await supabase.rpc("register_guest", { p_name: guestName.trim() });
       if (requestError) {
         setError("Não conseguimos confirmar agora. Tente novamente em instantes.");
         return;
       }
 
+      await notifyAdmin({ type: "presence", name: guestName.trim(), id: guestId });
       setIsConfirmed(true);
     } catch {
       setError("Não conseguimos confirmar agora. Tente novamente em instantes.");

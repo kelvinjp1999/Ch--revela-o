@@ -1,5 +1,19 @@
 # React + TypeScript + Vite
 
+## Avisos por e-mail para a administração
+
+O site envia uma notificação quando alguém confirma presença ou registra uma solicitação de cota. Para ativar o envio em produção:
+
+1. Configure os secrets da Edge Function no projeto Supabase:
+   - `RESEND_API_KEY`: chave da API do Resend.
+   - `MAIL_FROM` (ou `RESEND_FROM_EMAIL`): remetente verificado no Resend, por exemplo `Chá de Casa Nova <avisos@seudominio.com>`.
+   - `ADMIN_NOTIFICATION_EMAIL`: `beatriz.guilherme2302@gmail.com`.
+   - `SITE_URL`: endereço público do site, sem barra no final.
+2. Publique `supabase/functions/send-admin-notification` no Supabase.
+3. Publique novamente o site para incluir a integração do navegador.
+
+O e-mail da cota contém um link para `/admin` com a solicitação destacada. A área continua exigindo login de administrador; a confirmação é feita pelo botão “Confirmar cota”.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

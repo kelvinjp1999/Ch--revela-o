@@ -7,6 +7,7 @@ import GiftsHero from '../../features/gifts/components/gifts-hero/GiftsHero'
 import { gifts, type Gift, type GiftCategory } from '../../features/gifts/data/gifts'
 import HeartIcon from '../../components/ui/HeartIcon'
 import { supabase } from '../../lib/supabase'
+import { notifyAdmin } from '../../lib/adminNotifications'
 import pixQrCode from '../../assets/images/pix-qr-code.png'
 import './GiftsPage.css'
 
@@ -44,6 +45,7 @@ function GiftsPage() {
   const [isPixConfirmed, setIsPixConfirmed] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [pixError, setPixError] = useState('')
+  const [notificationWarning, setNotificationWarning] = useState(false)
   const [storedGifts, setStoredGifts] = useState<Gift[]>(gifts)
   const [giftsLoadError, setGiftsLoadError] = useState('')
   const visibleGifts = category === 'todos' ? storedGifts : storedGifts.filter((gift) => gift.category === category)
@@ -60,6 +62,7 @@ function GiftsPage() {
     setHasCopied(false)
     setIsPixConfirmed(false)
     setPixError('')
+    setNotificationWarning(false)
   }
 
   const copyPixCode = async () => {
@@ -127,13 +130,18 @@ function GiftsPage() {
     setIsSubmitting(true)
     setPixError('')
     try {
-      const { error } = selectedGift.id === 0
+      const { data: requestId, error } = selectedGift.id === 0
         ? await supabase.rpc('create_free_contribution')
         : await supabase.rpc('create_pix_payment_request', { p_gift_id: selectedGift.id })
 
       if (error) {
         setPixError(error.message.includes('Todas as cotas') ? error.message : 'Não foi possível registrar sua contribuição. Tente novamente.')
         return
+      }
+
+      if (selectedGift.id !== 0 && requestId) {
+        const notified = await notifyAdmin({ type: 'quota', productName: selectedGift.name, value: selectedGift.price, id: requestId })
+        setNotificationWarning(!notified)
       }
 
       setIsPixConfirmed(true)
@@ -221,13 +229,14 @@ function GiftsPage() {
                   {' '}<strong>{selectedGift.name}</strong> entrará na nossa lista de presentes.
                 </p>
                 <p className="pix-success-note">Seu apoio já deixou nosso novo lar ainda mais especial. 💛</p>
-                <button type="button" className="pix-confirm-button" onClick={closePixModal}>Com carinho!</button>
+                {notificationWarning && <p className="pix-success-note">Solicitação registrada, mas não foi possível enviar o aviso por e-mail agora.</p>}
+                <button type="button" className="pix-confirm-button" onClick={closePixModal}>Confirmar</button>
               </div>
             ) : (
               <>
                 <span className="pix-icon"><FiCoffee /></span>
-                <p className="pix-kicker">Uma cota cheia de carinho</p>
                 <h2 id="pix-modal-title">{selectedGift.name}</h2>
+                <p className="pix-value">{selectedGift.price > 0 ? `R$ ${selectedGift.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` : 'Valor livre'}</p>
                 <p className="pix-description">Escaneie o QR code ou copie a chave Pix abaixo para contribuir.</p>
 
                 <img className="pix-qr-code" src={pixQrCode} alt="QR code para pagamento via Pix" />
