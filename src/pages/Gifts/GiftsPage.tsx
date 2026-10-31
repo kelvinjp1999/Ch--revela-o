@@ -43,6 +43,9 @@ function GiftsPage() {
   const [selectedGift, setSelectedGift] = useState<Gift | null>(null)
   const [hasCopied, setHasCopied] = useState(false)
   const [isPixConfirmed, setIsPixConfirmed] = useState(false)
+  const [isBuyerDetailsStep, setIsBuyerDetailsStep] = useState(false)
+  const [buyerName, setBuyerName] = useState('')
+  const [buyerMessage, setBuyerMessage] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [pixError, setPixError] = useState('')
   const [notificationWarning, setNotificationWarning] = useState(false)
@@ -55,12 +58,18 @@ function GiftsPage() {
     setSelectedGift(null)
     setHasCopied(false)
     setIsPixConfirmed(false)
+    setIsBuyerDetailsStep(false)
+    setBuyerName('')
+    setBuyerMessage('')
   }
 
   const openPixModal = (gift: Gift) => {
     setSelectedGift(gift)
     setHasCopied(false)
     setIsPixConfirmed(false)
+    setIsBuyerDetailsStep(false)
+    setBuyerName('')
+    setBuyerMessage('')
     setPixError('')
     setNotificationWarning(false)
   }
@@ -132,7 +141,11 @@ function GiftsPage() {
     try {
       const { data: requestId, error } = selectedGift.id === 0
         ? await supabase.rpc('create_free_contribution')
-        : await supabase.rpc('create_pix_payment_request', { p_gift_id: selectedGift.id })
+        : await supabase.rpc('create_pix_payment_request', {
+            p_gift_id: selectedGift.id,
+            p_buyer_name: buyerName.trim() || null,
+            p_buyer_message: buyerMessage.trim() || null,
+          })
 
       if (error) {
         setPixError(error.message.includes('Todas as cotas') ? error.message : 'Não foi possível registrar sua contribuição. Tente novamente.')
@@ -223,15 +236,30 @@ function GiftsPage() {
               <div className="pix-success">
                 <span className="pix-icon"><FiCheck /></span>
                 <p className="pix-kicker">Pedido recebido</p>
-                <h2 id="pix-modal-title">Que alegria ter você com a gente!</h2>
+                <h2 id="pix-modal-title">{buyerName.trim() ? `Que alegria ter você com a gente, ${buyerName.trim()}!` : 'Que alegria ter você com a gente!'}</h2>
                 <p>
                   Obrigada pela contribuição. Assim que o Pix for confirmado, sua cota de
                   {' '}<strong>{selectedGift.name}</strong> entrará na nossa lista de presentes.
                 </p>
                 <p className="pix-success-note">Seu apoio já deixou nosso novo lar ainda mais especial. 💛</p>
-                {notificationWarning && <p className="pix-success-note">Solicitação registrada, mas não foi possível enviar o aviso por e-mail agora.</p>}
                 <button type="button" className="pix-confirm-button" onClick={closePixModal}>Confirmar</button>
               </div>
+            ) : isBuyerDetailsStep ? (
+              <form className="pix-buyer-form" onSubmit={(event) => { event.preventDefault(); void confirmPix() }}>
+                <span className="pix-icon"><FiCoffee /></span>
+                <p className="pix-kicker">Um recadinho opcional</p>
+                <h2 id="pix-modal-title">Deixe uma mensagem pra gente</h2>
+                <p className="pix-description">Se quiser, conte quem está nos presenteando ou deixe um carinho. Nome e mensagem são opcionais. 💛</p>
+                <label htmlFor="buyer-name">Seu nome <span>(opcional)</span></label>
+                <input id="buyer-name" type="text" maxLength={100} value={buyerName} onChange={(event) => setBuyerName(event.target.value)} placeholder="Como podemos te chamar?" />
+                <label htmlFor="buyer-message">Sua mensagem <span>(opcional)</span></label>
+                <textarea id="buyer-message" maxLength={500} rows={4} value={buyerMessage} onChange={(event) => setBuyerMessage(event.target.value)} placeholder="Escreva seu recadinho aqui..." />
+                <div className="pix-actions">
+                  <button type="button" className="pix-cancel-button" onClick={() => setIsBuyerDetailsStep(false)}>Voltar</button>
+                  <button type="submit" className="pix-confirm-button" disabled={isSubmitting}>{isSubmitting ? 'Registrando...' : 'Continuar'}</button>
+                </div>
+                {pixError && <p className="pix-error" role="alert">{pixError}</p>}
+              </form>
             ) : (
               <>
                 <span className="pix-icon"><FiCoffee /></span>
@@ -252,7 +280,7 @@ function GiftsPage() {
                 <p className="pix-security"><FiShield aria-hidden="true" /> Pagamento seguro via Pix</p>
                 <div className="pix-actions">
                   <button type="button" className="pix-cancel-button" onClick={closePixModal}>Cancelar</button>
-                  <button type="button" className="pix-confirm-button" onClick={confirmPix} disabled={isSubmitting}>
+                  <button type="button" className="pix-confirm-button" onClick={selectedGift.id === 0 ? confirmPix : () => setIsBuyerDetailsStep(true)} disabled={isSubmitting}>
                     {isSubmitting ? 'Registrando...' : <>Confirmar Pix <FiCheck /></>}
                   </button>
                 </div>

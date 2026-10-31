@@ -376,6 +376,14 @@
 .pix-success .pix-confirm-button { position: relative; z-index: 1; width: auto; margin-top: 22px; padding-right: 28px; padding-left: 28px; }
 .pix-success-note { margin-top: 12px; font-style: italic; }
 .pix-error { position: relative; z-index: 1; margin-top: 12px; color: #a44d43; font-size: 12px; }
+.pix-buyer-form { position: relative; z-index: 1; display: flex; flex-direction: column; text-align: left; }
+.pix-buyer-form .pix-icon { align-self: center; }
+.pix-buyer-form .pix-kicker, .pix-buyer-form h2, .pix-buyer-form .pix-description { text-align: center; }
+.pix-buyer-form label { margin: 14px 0 7px; color: #173b63; font-size: 13px; font-weight: 600; }
+.pix-buyer-form label span { color: #718397; font-size: 12px; font-weight: 400; }
+.pix-buyer-form input, .pix-buyer-form textarea { width: 100%; padding: 12px 13px; border: 1px solid #dfbf7c; border-radius: 10px; background: #fffdf7; color: #17324e; font: 14px "Inter", sans-serif; }
+.pix-buyer-form textarea { resize: vertical; }
+.pix-buyer-form .pix-actions { width: 100%; }
 
 @keyframes pix-fade-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes pix-slide-in { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }

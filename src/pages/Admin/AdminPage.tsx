@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { FiCheck, FiEdit2, FiLogOut, FiRefreshCw, FiTrash2 } from 'react-icons/fi'
+import { FiCheck, FiEdit2, FiLogOut, FiMessageCircle, FiRefreshCw, FiTrash2, FiX } from 'react-icons/fi'
 
 import { supabase } from '../../lib/supabase'
 import './AdminPage.css'
@@ -16,6 +16,17 @@ interface PixRequest {
   quota_value: number | string
   status: 'pendente'
   created_at: string
+  buyer_name: string | null
+  buyer_message: string | null
+}
+
+interface BuyerMessage {
+  id: string
+  product_name: string
+  buyer_name: string | null
+  buyer_message: string | null
+  created_at: string
+  status: 'pendente' | 'confirmada' | 'cancelada'
 }
 
 interface GiftSummary {
@@ -37,18 +48,22 @@ function AdminPage() {
   const [error, setError] = useState('')
   const [guests, setGuests] = useState<Guest[]>([])
   const [pixRequests, setPixRequests] = useState<PixRequest[]>([])
+  const [buyerMessages, setBuyerMessages] = useState<BuyerMessage[]>([])
+  const [isMessagesModalOpen, setIsMessagesModalOpen] = useState(false)
+  const [selectedMessage, setSelectedMessage] = useState<BuyerMessage | null>(null)
   const [giftSummary, setGiftSummary] = useState<GiftSummary[]>([])
 
   const loadDashboard = useCallback(async () => {
     if (!supabase) return
 
-    const [guestsResult, requestsResult, giftsResult] = await Promise.all([
+    const [guestsResult, requestsResult, giftsResult, messagesResult] = await Promise.all([
       supabase.rpc('admin_list_guest_rsvps'),
       supabase.rpc('admin_list_pending_pix_payment_requests'),
       supabase.rpc('admin_list_gift_quota_summary'),
+      supabase.rpc('admin_list_pix_buyer_messages'),
     ])
 
-    const requestError = guestsResult.error ?? requestsResult.error ?? giftsResult.error
+    const requestError = guestsResult.error ?? requestsResult.error ?? giftsResult.error ?? messagesResult.error
     if (requestError) {
       setError('Não foi possível carregar os dados administrativos.')
       return
@@ -57,6 +72,7 @@ function AdminPage() {
     setGuests((guestsResult.data ?? []) as Guest[])
     setPixRequests((requestsResult.data ?? []) as PixRequest[])
     setGiftSummary((giftsResult.data ?? []) as GiftSummary[])
+    setBuyerMessages((messagesResult.data ?? []) as BuyerMessage[])
   }, [])
 
   const validateSession = useCallback(async () => {
@@ -184,6 +200,7 @@ function AdminPage() {
           <p>Acompanhem com carinho cada confirmação do chá de casa nova.</p>
         </div>
         <div className="admin-header-actions">
+          <button className="admin-logout admin-messages-button" type="button" onClick={() => { setSelectedMessage(null); setIsMessagesModalOpen(true) }}><FiMessageCircle /> Recadinhos <span>{buyerMessages.length}</span></button>
           <button className="admin-icon-button" type="button" onClick={() => void loadDashboard()} aria-label="Atualizar dados"><FiRefreshCw /></button>
           <button className="admin-logout" type="button" onClick={() => void logout()}><FiLogOut /> Sair</button>
         </div>
@@ -204,10 +221,31 @@ function AdminPage() {
         <div className="admin-section-heading"><div><p className="admin-eyebrow">Pagamentos</p><h2>Cotas pendentes de confirmação</h2></div><span>{pixRequests.length}</span></div>
         {pixRequests.length ? (
           <div className="admin-list">
-            {pixRequests.map((request) => <article className="admin-row" id={`pix-${request.id}`} key={request.id}><div><h3>{request.product_name}</h3><p>{formatCurrency(request.quota_value)} · Solicitado em {formatDate(request.created_at)}</p></div><div className="admin-row-actions"><button className="confirm" type="button" onClick={() => void confirmQuota(request)}><FiCheck /> Confirmar cota</button><button className="danger" type="button" onClick={() => void deleteQuota(request)}><FiTrash2 /> Excluir cota</button></div></article>)}
+            {pixRequests.map((request) => <article className="admin-row" id={`pix-${request.id}`} key={request.id}><div><h3>{request.product_name}</h3><p>{formatCurrency(request.quota_value)} · Solicitado em {formatDate(request.created_at)}</p>{request.buyer_name && <p>De: {request.buyer_name}</p>}</div><div className="admin-row-actions"><button type="button" onClick={() => { setSelectedMessage(request); setIsMessagesModalOpen(true) }}><FiMessageCircle /> Ver recado</button><button className="confirm" type="button" onClick={() => void confirmQuota(request)}><FiCheck /> Confirmar cota</button><button className="danger" type="button" onClick={() => void deleteQuota(request)}><FiTrash2 /> Excluir cota</button></div></article>)}
           </div>
         ) : <p className="admin-empty">Nenhuma cota aguardando confirmação.</p>}
       </section>
+
+      {isMessagesModalOpen && (
+        <div className="admin-modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setIsMessagesModalOpen(false) }}>
+          <section className="admin-messages-modal" role="dialog" aria-modal="true" aria-labelledby="admin-messages-title">
+            <button type="button" className="admin-modal-close" onClick={() => setIsMessagesModalOpen(false)} aria-label="Fechar recadinhos"><FiX /></button>
+            <p className="admin-eyebrow">Com carinho</p>
+            <h2 id="admin-messages-title">Recadinhos de quem presenteou</h2>
+            {selectedMessage ? (
+              <article className="admin-message-card">
+                <h3>{selectedMessage.product_name}</h3>
+                <p className="admin-message-author">{selectedMessage.buyer_name || 'Pessoa querida'} · {formatDate(selectedMessage.created_at)}</p>
+                <p>{selectedMessage.buyer_message || 'A pessoa não deixou uma mensagem.'}</p>
+              </article>
+            ) : buyerMessages.length ? (
+              <div className="admin-messages-list">
+                {buyerMessages.map((message) => <article className="admin-message-card" key={message.id}><h3>{message.product_name}</h3><p className="admin-message-author">{message.buyer_name || 'Pessoa querida'} · {formatDate(message.created_at)}</p><p>{message.buyer_message || 'A pessoa informou o nome, mas não deixou uma mensagem.'}</p></article>)}
+              </div>
+            ) : <p className="admin-empty">Ainda não recebemos recadinhos.</p>}
+          </section>
+        </div>
+      )}
 
       <section className="admin-section">
         <div className="admin-section-heading"><div><p className="admin-eyebrow">Lista de presentes</p><h2>Cotas já compradas</h2></div></div>

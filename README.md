@@ -14,6 +14,10 @@ O site envia uma notificação quando alguém confirma presença ou registra uma
 
 O e-mail da cota contém um link para `/admin` com a solicitação destacada. A área continua exigindo login de administrador; a confirmação é feita pelo botão “Confirmar cota”.
 
+## Nome e recado opcional nas cotas
+
+Para salvar o nome e a mensagem opcional junto com cada solicitação de cota, execute o conteúdo de `supabase/migrations/20261031_pix_buyer_messages.sql` no SQL Editor do Supabase antes de publicar o site. A migration atualiza as funções administrativas para exibir os recados no painel.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
