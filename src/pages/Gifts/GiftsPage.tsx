@@ -48,7 +48,6 @@ function GiftsPage() {
   const [buyerMessage, setBuyerMessage] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [pixError, setPixError] = useState('')
-  const [notificationWarning, setNotificationWarning] = useState(false)
   const [storedGifts, setStoredGifts] = useState<Gift[]>(gifts)
   const [giftsLoadError, setGiftsLoadError] = useState('')
   const visibleGifts = category === 'todos' ? storedGifts : storedGifts.filter((gift) => gift.category === category)
@@ -71,7 +70,6 @@ function GiftsPage() {
     setBuyerName('')
     setBuyerMessage('')
     setPixError('')
-    setNotificationWarning(false)
   }
 
   const copyPixCode = async () => {
@@ -153,8 +151,7 @@ function GiftsPage() {
       }
 
       if (selectedGift.id !== 0 && requestId) {
-        const notified = await notifyAdmin({ type: 'quota', productName: selectedGift.name, value: selectedGift.price, id: requestId })
-        setNotificationWarning(!notified)
+        await notifyAdmin({ type: 'quota', productName: selectedGift.name, value: selectedGift.price, id: requestId })
       }
 
       setIsPixConfirmed(true)
